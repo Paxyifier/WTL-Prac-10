@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Style, Mouse and Keyboard Directives</title>
+    <script>
+      var app = angular.module("myApp", []);
+      app.controller("styles-controller", ($scope) => {
+        $scope.color = "black";
+        $scope.textStyle = {
+          color: "black",
+        };
+        $scope.divStyle = {
+          color: "darkblue",
+          "background-color": "violet",
+          "border-style": "double",
+          "border-color": "purple",
+          "border-radius": "45%",
+          padding: "0.5em",
+          width: "fit-content",
+          <!-- "font-size": "2em", -->
+        };
+      });
+      app.controller("mouse-controller", ($scope) => {
+        $scope.count = 0;
+        $scope.mouse_status = "no mouse here";
+      });
+      app.controller("keyboard-controller", ($scope) => {
+        $scope.count = 0;
+      });
+    </script>
+  </head>
+  <body ng-app="myApp">
+    <h1>Example Of Directives</h1>
+    <h3>Style Directive</h3>
+    <div ng-controller="styles-controller">
+      <h5>Text</h5>
+      <p ng-style="textStyle">Hello World</p>
+      <div>
+        <button ng-style="divStyle" ng-mousedown="textStyle.color='pink'">Make Text pink</button>
+        <button ng-style="divStyle" ng-mousedown="textStyle.color='red'">Make Text red</button>
+        <button ng-style="divStyle" ng-mousedown="textStyle.color='violet'">Make Text violet</button>
+      </div>
+      Color Selected: {{textStyle.color}}
+    </div>
+    <h3>Mouse Directive</h3>
+    <div ng-controller="mouse-controller">
+      <p>Count: {{count}}</p>
+      <button ng-mousedown="count = count+1">Increment Counter</button>
+      <button ng-mousedown="count = 0">Reset Counter</button>
+      <div
+        style="height: 4em; width: 4em; background-color: aquamarine"
+        ng-mouseenter="mouse_status='mouse has entered';"
+        ng-mouseleave="mouse_status='mouse has left';"
+      ></div>
+      {{mouse_status}}
+    </div>
+    <h3>Keyboard Directive</h3>
+    <div ng-controller="keyboard-controller">
+      Text Area:
+      <br /><textarea
+        ng-keydown="count = count+1;"
+        name="txtarea"
+        id=""
+        cols="30"
+        rows="10"
+      ></textarea>
+      <br />
+      Number of keys pressed = {{count}}
+    </div>
+  </body>
+</html>
